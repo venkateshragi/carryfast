@@ -1,0 +1,26 @@
+The functionality is not complete. This was asked by turvo
+
+mvn spring-boot:run
+			This would start the application on localhost:8080
+
+To debug application
+			mvn spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
+
+This is developed as a spring boot application to make adding shipments, destinations and shippers information easy through
+swagger ui or postman
+
+Swagger UI can be accessed from http://localhost:8080/swagger-ui.html
+
+Following are the steps to initialize
+- add initial shipment
+- add destinations and shippers
+- above 2 steps can be performed in any order
+- then after all shipments, destinations and shippers are added call initialize method
+
+Explanation of project and assumptions:
+
+- A shipment can be added once and from then periodically based on configured property, this shipment is used to produce mails.
+- The initialize method is called only once. No exception handling mechanism is in place to avoid multiple calls to initialize
+- Please check application.properties file to provide the default properties.
+- It is assumed that each shipment is in a new ship. So each shipment runs in a separate thread.
+- It is assumed that There is only one email notification engine which consumes messaged emitted by shipments and sends mail to shippers
